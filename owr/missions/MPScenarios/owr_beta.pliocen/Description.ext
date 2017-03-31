@@ -1,0 +1,647 @@
+respawn = 3;
+
+class CfgIdentities {
+    class ow_ru01 {
+		name = "Col. Peter A. Morozov";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 0;
+		prefMinor = 3;
+    };
+    class ow_ru02 {
+		name = "Y. I. 'Burlak' Gorky";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 2;
+		prefMinor = 1;
+    };
+    class ow_ru03 {
+		name = "Cpt. V. I. Gorky";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 0;
+		prefMinor = 1;
+    };
+    class ow_ru04 {
+		name = "Dmitri A. Gladkov";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 0;
+		prefMinor = 3;
+    };
+    class ow_ru05 {
+		name = "Nikita S. Kozlov";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 3;
+		prefMinor = 2;
+    };
+    class ow_ru06 {
+		name = "Yelena P. Kirilenkova";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 3;
+		prefMinor = 1;
+    };
+    class ow_ru07 {
+		name = "Corp. S. D. Gnyevko";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 0;
+		prefMinor = 1;
+    };
+    class ow_ru08 {
+		name = "Corp. P. M. Belkov";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 0;
+		prefMinor = 2;
+    };
+    class ow_ru09 {
+		name = "Corp. N. P. Petrovova";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 2;
+		prefMinor = 0;
+    };
+    class ow_ru10 {
+		name = "Ilya I. Kovalyuk";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 2;
+		prefMinor = 0;
+    };
+    class ow_ru11 {
+		name = "Cpt. G. M. Petrosyan";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 3;
+		prefMinor = 1;
+    };
+    class ow_ru12 {
+		name = "Olga N. Kapitsova";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 3;
+		prefMinor = 1;
+    };
+    class ow_ru13 {
+		name = "Maria Jaworska";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 0;
+		prefMinor = 2;
+    };
+    class ow_ru14 {
+		name = "Dr. Lazar L. Dolgov";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 3;
+		prefMinor = 2;
+    };
+    class ow_ru15 {
+		name = "Col. Pyotr P. Davidov";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 3;
+		prefMinor = 1;
+    };
+    class ow_ru16 {
+		name = "Nadja Petrovska";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 0;
+		prefMinor = 1;
+    };
+    class ow_ru17 {
+		name = "Lena Sevovska";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 2;
+		prefMinor = 1;
+    };
+    class ow_ru18 {
+		name = "Pvt. Lev T. Titov";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 0;
+		prefMinor = 2;
+    }; 
+    class ow_ru19 {
+		name = "Yelena Prevorska";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 1;
+		prefMinor = 2;
+    };
+    class ow_ru20 {
+		name = "Fyodor A. Furmanov";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 2;
+		prefMinor = 3;
+    };
+
+
+    class ow_am01 {
+		name = "Ron Harrison";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 0;
+		prefMinor = 1;
+    };
+    class ow_am02 {
+		name = "John Macmillan";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 0;
+		prefMinor = 2;
+    };
+    class ow_am03 {
+		name = "Tim Gladstone";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 3;
+		prefMinor = 2;
+    };
+    class ow_am04 {
+		name = "Cyrus Parker";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 0;
+		prefMinor = 1;
+    };
+    class ow_am05 {
+		name = "Lucy Donaldson";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 0;
+		prefMinor = 2;
+    };
+    class ow_am06 {
+		name = "Bobby Brandon";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 2;
+		prefMinor = 1;
+    };
+    class ow_am07 {
+		name = "Frank Forsyth";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 0;
+		prefMinor = 1;
+    };
+    class ow_am08 {
+		name = "Lisa Lawson";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 0;
+		prefMinor = 2;
+    };
+    class ow_am09 {
+		name = "Joan Fergusson";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 3;
+		prefMinor = 1;
+    };
+    class ow_am10 {
+		name = "Jeff Brown";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 2;
+		prefMinor = 1;
+    };
+    class ow_am11 {
+		name = "Suni Yamoko";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 3;
+		prefMinor = 1;
+    };
+    class ow_am12 {
+		name = "Jeremy Sikorski";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 0;
+		prefMinor = 2;
+    };
+    class ow_am13 {
+		name = "Cathy Simms";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 3;
+		prefMinor = 2;
+    };
+    class ow_am14 {
+		name = "Zoe Cather";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 3;
+		prefMinor = 1;
+    };
+    class ow_am15 {
+		name = "Andy Cornell";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 0;
+		prefMinor = 1;
+    };
+    class ow_am16 {
+		name = "Peter Roth";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 3;
+		prefMinor = 1;
+    };
+    class ow_am17 {
+		name = "Eve Woodruff";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 1;
+		prefMinor = 3;
+    };
+    class ow_am18 {
+		name = "Netaya Keitner";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 0;
+		prefMinor = 3;
+    };
+    class ow_am19 {
+		name = "Finlay Scott";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 1;
+		prefMinor = 3;
+    };
+    class ow_am20 {
+		name = "Sara Keawe";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 1;
+		prefMinor = 3;
+    };
+
+
+
+    class ow_ar01 {
+		name = "Omar Ali";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 0;
+		prefMinor = 1;
+    };
+    class ow_ar02 {
+		name = "Kurt Schmidt";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 0;
+		prefMinor = 2;
+    };
+    class ow_ar03 {
+		name = "Heike Steyer";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 0;
+		prefMinor = 1;
+    };
+    class ow_ar04 {
+		name = "Dr. Aviradze Aziz-diul";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 3;
+		prefMinor = 2;
+    };
+    class ow_ar05 {
+		name = "Raul Xavier";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 0;
+		prefMinor = 2;
+    };
+    class ow_ar06 {
+		name = "Suze Thaelst";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 3;
+		prefMinor = 1;
+    };
+    class ow_ar07 {
+		name = "Ali Hadarach";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 2;
+		prefMinor = 3;
+    };
+    class ow_ar08 {
+		name = "Lucy Sebel";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 0;
+		prefMinor = 2;
+    };
+    class ow_ar09 {
+		name = "Christina Makise";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 0;
+		prefMinor = 2;
+    };
+    class ow_ar10 {
+		name = "Hans Gluckman";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 2;
+		prefMinor = 1;
+    };
+    class ow_ar11 {
+		name = "Ludwig Ortlieb";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 2;
+		prefMinor = 0;
+    };
+    class ow_ar12 {
+		name = "Heinz Gimmelshtump";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 2;
+		prefMinor = 3;
+    };
+    class ow_ar13 {
+		name = "Sonya Weaver";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 2;
+		prefMinor = 0;
+    };
+    class ow_ar14 {
+		name = "Ralph Douglas";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 3;
+		prefMinor = 1;
+    };
+    class ow_ar15 {
+		name = "Mark Bodenhof";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 0;
+		prefMinor = 1;
+    };
+    class ow_ar16 {
+		name = "Julia Phillips";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 2;
+		prefMinor = 1;
+    };
+    class ow_ar17 {
+		name = "Marcel Pritchard";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 3;
+		prefMinor = 2;
+    };
+    class ow_ar18 {
+		name = "Alyssa Swansson";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 1;
+		prefMinor = 3;
+    };
+    class ow_ar19 {
+		name = "Aporia Lyskolya";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 2;
+		prefMinor = 1;
+    };
+    class ow_ar20 {
+		name = "Mike Dalton";
+		nameSound = "Larkin";
+		face="WhiteHead_06";
+		glasses="None";
+		speaker="Male01ENG";
+		pitch=1.1;
+		prefMajor = 0;
+		prefMinor = 3;
+    };
+};
+
+class Params
+{
+	class CheatMode
+	{
+		title = "Debug mode";
+		texts[] = {"Yes","No"}; 
+		values[] = {1, 0};
+		default = 0;
+	};
+	class DynChars
+	{
+		title = "Additional AI personnel";
+		values[] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14};
+		default = 8;
+	};
+	class DynCharsFreq
+	{
+		title = "Additional AI personnel arrival frequency";
+		texts[] = {"Low","Medium","High"}; 
+		values[] = {75,45,15};
+		default = 45;
+	};
+	class OilAmount
+	{
+		title = "Oil deposit density";
+		texts[] = {"Low","Medium","High"}; 
+		values[] = {75,45,25};
+		default = 45;
+	};
+	class SibAmount
+	{
+		title = "Siberite deposit density";
+		texts[] = {"Low","Medium","High"}; 
+		values[] = {75,45,25};
+		default = 75;
+	};
+};
