@@ -31,6 +31,8 @@ if (_debugModeParam == 1) then {
 };
 
 
+// WARNING: LONG FILE AHEAD!!
+//  many of the following functions will be moved into pbo files in future!
 
 // function init
 // in-line scripts
@@ -3471,8 +3473,16 @@ owr_fn_buildSomething = {
 		if (_isMine) then {
 			_naturalDeposits = nearestObjects [_obj_placing_lastpos, [_mineType], 10.0];
 			if ((count _naturalDeposits) > 0) then {
-				_ghost setPos (getPos (_naturalDeposits select 0));
-				_positionConstraint = true;
+				// check if this resource site is not occupied already first!
+				_existingMines = nearestObjects [(getPos (_naturalDeposits select 0)), ["source_oil_am","source_sib_am","source_oil_ru","source_sib_ru","source_oil_ar","source_sib_ar"], 1.0];
+				if ((count _existingMines) > 0) then {
+					// there is already resource extraction built
+					_positionConstraint = false;
+				} else {
+					// this resource deposit is free
+					_ghost setPos (getPos (_naturalDeposits select 0));
+					_positionConstraint = true;
+				};
 			};
 		};
 
@@ -3560,6 +3570,11 @@ owr_fn_buildSomething = {
 					if ((_obj_placing_lastpos distance (_positions select _i)) < 150) then {
 						_distanceContraint = false;
 					};
+				};
+				// ignore node-warehouse limitations when domination mode is off
+				_domiSwitch = ["DominationVictory"] call BIS_fnc_getParamValue;
+				if (_domiSwitch == 0) then {
+					_distanceContraint = true;
 				};
 			};
 			// node order check - can player actualy build it?
@@ -5930,34 +5945,43 @@ owr_fn_GUIActiveActionButtons = {
 										};
 									};
 
-									_owr_action7 ctrlSetTooltip "Build control tower (costs 50 crates, can only be built on a node)";
-									_owr_action7 ctrlSetText "\owr\ui\data\buildings\icon_control_tower_ca.paa";
-									_owr_action7 ctrlRemoveAllEventHandlers "buttonclick";
-									switch (_sideStr) do {
-										case "am": {
-											_owr_action7 ctrladdeventhandler ["buttonclick", {
-												_unitToChange = (curatorSelected select 0) select 0;
-												_unitToChange setVariable ["ow_worker_buildmode", 4, true];
-												[_unitToChange, "control_tower_am"] spawn owr_fn_buildSomething;
-												playSound "owr_ui_button_confirm";
-											}];	
+									_domiSwitch = ["DominationVictory"] call BIS_fnc_getParamValue;	// check if it is enabled
+									if (_domiSwitch == 1) then {
+										_owr_action7 ctrlSetTooltip "Build control tower (costs 50 crates, can only be built on a node)";
+										_owr_action7 ctrlSetText "\owr\ui\data\buildings\icon_control_tower_ca.paa";
+										_owr_action7 ctrlRemoveAllEventHandlers "buttonclick";
+										switch (_sideStr) do {
+											case "am": {
+												_owr_action7 ctrladdeventhandler ["buttonclick", {
+													_unitToChange = (curatorSelected select 0) select 0;
+													_unitToChange setVariable ["ow_worker_buildmode", 4, true];
+													[_unitToChange, "control_tower_am"] spawn owr_fn_buildSomething;
+													playSound "owr_ui_button_confirm";
+												}];	
+											};
+											case "ru": {
+												_owr_action7 ctrladdeventhandler ["buttonclick", {
+													_unitToChange = (curatorSelected select 0) select 0;
+													_unitToChange setVariable ["ow_worker_buildmode", 4, true];
+													[_unitToChange, "control_tower_ru"] spawn owr_fn_buildSomething;
+													playSound "owr_ui_button_confirm";
+												}];	
+											};
+											case "ar": {
+												_owr_action7 ctrladdeventhandler ["buttonclick", {
+													_unitToChange = (curatorSelected select 0) select 0;
+													_unitToChange setVariable ["ow_worker_buildmode", 4, true];
+													[_unitToChange, "control_tower_ar"] spawn owr_fn_buildSomething;
+													playSound "owr_ui_button_confirm";
+												}];	
+											};
 										};
-										case "ru": {
-											_owr_action7 ctrladdeventhandler ["buttonclick", {
-												_unitToChange = (curatorSelected select 0) select 0;
-												_unitToChange setVariable ["ow_worker_buildmode", 4, true];
-												[_unitToChange, "control_tower_ru"] spawn owr_fn_buildSomething;
-												playSound "owr_ui_button_confirm";
-											}];	
-										};
-										case "ar": {
-											_owr_action7 ctrladdeventhandler ["buttonclick", {
-												_unitToChange = (curatorSelected select 0) select 0;
-												_unitToChange setVariable ["ow_worker_buildmode", 4, true];
-												[_unitToChange, "control_tower_ar"] spawn owr_fn_buildSomething;
-												playSound "owr_ui_button_confirm";
-											}];	
-										};
+									} else {
+										_owr_action7 ctrlSetTooltip "Build control tower (domination disabled)";
+										_owr_action7 ctrlSetText "\owr\ui\data\buildings\icon_control_tower_ca.paa";
+										_owr_action7 ctrlRemoveAllEventHandlers "buttonclick";
+										_owr_action7 ctrlSetTextColor [0.5, 0.5, 0.5, 1];
+										_owr_action7 ctrlSetActiveColor [0.5, 0.5, 0.5, 1];
 									};
 
 									_owr_action6 ctrlSetText "\owr\ui\data\buildings\icon_defense_ca.paa";
@@ -18102,8 +18126,12 @@ switch (player) do {
 		[] spawn owr_fn_am_fov;
 
 		// mission objective managers
-		[bis_curatorUnit_west, "control_tower_am", owr_positions_nodes select 1, owr_positions_nodes select 2, owr_positions_nodes select 6, owr_positions_nodes select 4, owr_positions_nodes select 5] spawn owr_fn_taskManagerSide;
-		[] spawn owr_fn_nodeMarkerManager;
+		// check if it is enabled first
+		_domiSwitch = ["DominationVictory"] call BIS_fnc_getParamValue;
+		if (_domiSwitch == 1) then {
+			[bis_curatorUnit_west, "control_tower_am", owr_positions_nodes select 1, owr_positions_nodes select 2, owr_positions_nodes select 6, owr_positions_nodes select 4, owr_positions_nodes select 5] spawn owr_fn_taskManagerSide;
+			[] spawn owr_fn_nodeMarkerManager;
+		};
 	};
 	case bis_curatorUnit_east: {
 		// east curator
@@ -18149,9 +18177,12 @@ switch (player) do {
 
 
 		// task manager
-		[bis_curatorUnit_east, "control_tower_ru", owr_positions_nodes select 0, owr_positions_nodes select 4, owr_positions_nodes select 6, owr_positions_nodes select 2, owr_positions_nodes select 5] spawn owr_fn_taskManagerSide;
-		[] spawn owr_fn_nodeMarkerManager;
-
+		// check if it is enabled first
+		_domiSwitch = ["DominationVictory"] call BIS_fnc_getParamValue;
+		if (_domiSwitch == 1) then {
+			[bis_curatorUnit_east, "control_tower_ru", owr_positions_nodes select 0, owr_positions_nodes select 4, owr_positions_nodes select 6, owr_positions_nodes select 2, owr_positions_nodes select 5] spawn owr_fn_taskManagerSide;
+			[] spawn owr_fn_nodeMarkerManager;
+		};
 
 		// wait loop for siberite detection research
 		while {!(["siberite", 5, bis_curator_east] call owr_fn_isResearchComplete)} do {
@@ -18192,8 +18223,12 @@ switch (player) do {
 		[] spawn owr_fn_ar_fov;
 
 		// task manager
-		[bis_curatorUnit_arab, "control_tower_ar", owr_positions_nodes select 3, owr_positions_nodes select 2, owr_positions_nodes select 4, owr_positions_nodes select 6, owr_positions_nodes select 5] spawn owr_fn_taskManagerSide;
-		[] spawn owr_fn_nodeMarkerManager;
+		// check if it is enabled first
+		_domiSwitch = ["DominationVictory"] call BIS_fnc_getParamValue;
+		if (_domiSwitch == 1) then {
+			[bis_curatorUnit_arab, "control_tower_ar", owr_positions_nodes select 3, owr_positions_nodes select 2, owr_positions_nodes select 4, owr_positions_nodes select 6, owr_positions_nodes select 5] spawn owr_fn_taskManagerSide;
+			[] spawn owr_fn_nodeMarkerManager;
+		};
 	};
 
 	default {
@@ -18206,8 +18241,12 @@ switch (player) do {
 
 		switch (typeOf player) do {
 			case "owr_man_am": {
-				[player, "control_tower_am", owr_positions_nodes select 1, owr_positions_nodes select 2, owr_positions_nodes select 6, owr_positions_nodes select 4, owr_positions_nodes select 5] spawn owr_fn_taskManagerSide;
-				[] spawn owr_fn_nodeMarkerManager;
+				// check if it is enabled first
+				_domiSwitch = ["DominationVictory"] call BIS_fnc_getParamValue;
+				if (_domiSwitch == 1) then {
+					[player, "control_tower_am", owr_positions_nodes select 1, owr_positions_nodes select 2, owr_positions_nodes select 6, owr_positions_nodes select 4, owr_positions_nodes select 5] spawn owr_fn_taskManagerSide;
+					[] spawn owr_fn_nodeMarkerManager;
+				};
 
 				// init gear
 				[player, player getVariable "ow_class", "am"] call owr_fn_assignClassGear;
@@ -18307,8 +18346,12 @@ switch (player) do {
 				}];
 			};
 			case "owr_man_ru": {
-				[player, "control_tower_ru", owr_positions_nodes select 0, owr_positions_nodes select 4, owr_positions_nodes select 6, owr_positions_nodes select 2, owr_positions_nodes select 5] spawn owr_fn_taskManagerSide;
-				[] spawn owr_fn_nodeMarkerManager;
+				// check if it is enabled first
+				_domiSwitch = ["DominationVictory"] call BIS_fnc_getParamValue;
+				if (_domiSwitch == 1) then {
+					[player, "control_tower_ru", owr_positions_nodes select 0, owr_positions_nodes select 4, owr_positions_nodes select 6, owr_positions_nodes select 2, owr_positions_nodes select 5] spawn owr_fn_taskManagerSide;
+					[] spawn owr_fn_nodeMarkerManager;
+				};
 
 				// init gear
 				[player, player getVariable "ow_class", "ru"] call owr_fn_assignClassGear;
@@ -18408,8 +18451,12 @@ switch (player) do {
 				}];
 			};
 			case "owr_man_ar": {
-				[player, "control_tower_ar", owr_positions_nodes select 3, owr_positions_nodes select 2, owr_positions_nodes select 4, owr_positions_nodes select 6, owr_positions_nodes select 5] spawn owr_fn_taskManagerSide;
-				[] spawn owr_fn_nodeMarkerManager;
+				// check if it is enabled first
+				_domiSwitch = ["DominationVictory"] call BIS_fnc_getParamValue;
+				if (_domiSwitch == 1) then {
+					[player, "control_tower_ar", owr_positions_nodes select 3, owr_positions_nodes select 2, owr_positions_nodes select 4, owr_positions_nodes select 6, owr_positions_nodes select 5] spawn owr_fn_taskManagerSide;
+					[] spawn owr_fn_nodeMarkerManager;
+				};
 
 				// init gear
 				[player, player getVariable "ow_class", "ar"] call owr_fn_assignClassGear;

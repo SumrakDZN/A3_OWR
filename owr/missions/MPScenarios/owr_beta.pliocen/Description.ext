@@ -612,7 +612,7 @@ class Params
 {
 	class CheatMode
 	{
-		title = "Debug mode";
+		title = "Debug mode (no resource reqs, instant building and manufacturing, all researched)";
 		texts[] = {"Yes","No"}; 
 		values[] = {1, 0};
 		default = 0;
@@ -630,18 +630,32 @@ class Params
 		values[] = {75,45,15};
 		default = 45;
 	};
+	class GameSpeed
+	{
+		title = "Speed of the game (affects building, manufacturing, research, gaining experience)";
+		texts[] = {"Low","Medium","High","Very High"}; 
+		values[] = {3,7,15,20};
+		default = 7;
+	};
+	class DominationVictory
+	{
+		title = "Domination mode and victory condition";
+		texts[] = {"Enabled","Disabled"}; 
+		values[] = {1, 0};
+		default = 1;
+	};
 	class OilAmount
 	{
 		title = "Oil deposit density";
 		texts[] = {"Low","Medium","High"}; 
 		values[] = {75,45,25};
-		default = 45;
+		default = 25;
 	};
 	class SibAmount
 	{
 		title = "Siberite deposit density";
 		texts[] = {"Low","Medium","High"}; 
 		values[] = {75,45,25};
-		default = 75;
+		default = 45;
 	};
 };

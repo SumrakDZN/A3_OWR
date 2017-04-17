@@ -16,6 +16,7 @@ This repository contains all important gameplay source files, but does not conta
 * **owr\weapons\** all weapon configuration and overrides
 
 ## What can I do with data available here?
+All files, available in this repository, are for personal use only (and for use within Arma 3: Original War of course), meaning you cannot use any of these within your own work directly. If you are here just to check how I did x and y, I have absolutely no problem with that (part of the reason why this repository exists). However any help with improving Arma 3: Original War is greatly appereaciated!
 
 ## Got any questions?
 Take a look on the official website at http://owr.nightstalkers.cz or contact me directly on sumrak\at/nightstalkers.cz!

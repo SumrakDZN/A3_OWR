@@ -1470,6 +1470,8 @@ owr_fn_makeBuildProgress = {
 
 	_progress = (((1 / (_complexity * _complexity))) / 25.0) + ((_skill / 100.0) / 750.0);
 
+	_progress = _progress * owr_gameSpeed;
+
 	//hintSilent format ["%1\n%2\n\n%3\n\n%4", (((1 / (_complexity * _complexity))) / 25.0), ((_skill / 100.0) / 750.0), _complexity, _skill];
 
 	if (owr_devhax) then {
@@ -1483,6 +1485,8 @@ owr_fn_makeResProgress = {
 	_skill = _this select 1;
 
 	_progress = (((1 / (_complexity * _complexity)) / 100.0) / 25.0) + ((_skill / 100.0) / 750.0);
+
+	_progress = _progress * owr_gameSpeed;
 
 	// res cmplx 4
 	// scientist lvl 4
@@ -1506,6 +1510,8 @@ owr_fn_makeManProgress = {
 
 	_progress = (((1 / (_complexity * _complexity)) / 4.5) / 25.0) + ((_skill / 100.0) / 150.0);
 
+	_progress = _progress * owr_gameSpeed;
+
 	// 0.00016 + 0.000066
 	//  0.00128
 
@@ -1527,6 +1533,8 @@ owr_fn_makeExpProgress = {
 	_skill = _this select 1;
 
 	_skill = ((_complexity) / 75000.0) + ((_complexity) / (_skill * 10000));
+
+	_skill = _skill * (owr_gameSpeed / 2.0);
 
 	// this script is caled every 0.1 for each personnel - if they are manufacturing / building / researching
 	// the higher level, the lower gain should be
@@ -1555,7 +1563,7 @@ owr_am_characters = [am01,am02,am03,am04,am05,am06];
 	_x disableAI "COVER";
 	_x setVariable ["ow_class", _majorPref, true];
 	_x setVariable ["ow_ctype", false, true];
-	_x setVariable ["ow_aitype", 1, true];
+	_x setVariable ["ow_aitype", 0, true];
 	_x setVariable ["ow_worker_buildmode", 0, true];
 	_x setVariable ["ow_skill_soldier", random [0.01, 2, 4.0], true];
 	_x setVariable ["ow_skill_worker", random [0.01, 2, 4.0], true];
@@ -1664,7 +1672,7 @@ owr_ar_characters = [ar01,ar02,ar03,ar04,ar05,ar06];
 	_x disableAI "COVER";
 	_x setVariable ["ow_class", _majorPref, true];
 	_x setVariable ["ow_ctype", false, true];
-	_x setVariable ["ow_aitype", 1, true];
+	_x setVariable ["ow_aitype", 0, true];
 	_x setVariable ["ow_worker_buildmode", 0, true];
 	_x setVariable ["ow_skill_soldier", random [0.01, 2, 4.0], true];
 	_x setVariable ["ow_skill_worker", random [0.01, 2, 4.0], true];
@@ -1756,7 +1764,7 @@ owr_ru_characters = [ru01,ru02,ru03,ru04,ru05,ru06];
 	_x disableAI "COVER";
 	_x setVariable ["ow_class", _majorPref, true];
 	_x setVariable ["ow_ctype", false, true];
-	_x setVariable ["ow_aitype", 1, true];
+	_x setVariable ["ow_aitype", 0, true];
 	_x setVariable ["ow_worker_buildmode", 0, true];
 	_x setVariable ["ow_skill_soldier", random [0.01, 2, 4.0], true];
 	_x setVariable ["ow_skill_worker", random [0.01, 2, 4.0], true];
@@ -1919,6 +1927,7 @@ owr_dyn_char_ar_cur = 0;	// this will increment
 
 setViewDistance 1000;
 
+owr_gameSpeed = ["GameSpeed"] call BIS_fnc_getParamValue;						// higher = higher game
 owr_res_density_oil = (["OilAmount"] call BIS_fnc_getParamValue) / 100; 		// higher = lower density (less amount of oil sources)
 owr_res_density_siberite = (["SibAmount"] call BIS_fnc_getParamValue) / 100; 	// higher = lower density (less amount of siberite sources)
 
@@ -2584,21 +2593,24 @@ sleep 3;
 
 // DOMINATION SYSTEM
 // main win condition loop
-[] spawn {
-	_someOneDidIt = false;
-	while {!_someOneDidIt} do {
-		// check for presence of a control tower on primary siberite deposit
-		// if present, keep checking ow_wrhs_siberite value, if it reaches 1000, owner won!
-		sleep 10;
-		_nearestTower = nearestObjects [[3076.5,2276.03], ["control_tower_am", "control_tower_ru", "control_tower_ar"], 10];
-		if ((count _nearestTower) > 0) then {
-			if (((_nearestTower select 0) getVariable "ow_wrhs_siberite") >= 1000) then {
-				_someOneDidIt = true;
+_domiSwitch = ["DominationVictory"] call BIS_fnc_getParamValue;	// check if it is enabled
+if (_domiSwitch == 1) then {
+	[] spawn {
+		_someOneDidIt = false;
+		while {!_someOneDidIt} do {
+			// check for presence of a control tower on primary siberite deposit
+			// if present, keep checking ow_wrhs_siberite value, if it reaches 1000, owner won!
+			sleep 10;
+			_nearestTower = nearestObjects [[3076.5,2276.03], ["control_tower_am", "control_tower_ru", "control_tower_ar"], 10];
+			if ((count _nearestTower) > 0) then {
+				if (((_nearestTower select 0) getVariable "ow_wrhs_siberite") >= 1000) then {
+					_someOneDidIt = true;
+				};
 			};
 		};
+
+		sleep 20;
+
+		"SideScore" call BIS_fnc_endMissionServer;
 	};
-
-	sleep 20;
-
-	"SideScore" call BIS_fnc_endMissionServer;
 };
