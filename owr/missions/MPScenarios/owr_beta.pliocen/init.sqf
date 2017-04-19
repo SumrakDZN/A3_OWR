@@ -1,20 +1,42 @@
 if (!(isServer)) then {
-	// some things that are normally executed on server, but has to be executed on all clients too :(
+	// view dist
 	setViewDistance 1000;
-	// ENVIRONMENT - FASTER TIME
-	[] spawn {
-		while {true} do {
-			// normal rate for nice day times
-			_rate = 0.000265;
-			if (((daytime > 9.5) && (daytime < 15.5)) || ((daytime > 22.5) || (daytime < 3.5))) then {
-				// apply faster rate - dont stay in dark for too long
-				// also dont stay in bright day for too long
-				_rate = 0.00053;
-			};
-			_i = 0;
-			for "_i" from 0 to 30 do {
-				skipTime _rate;
-				sleep 0.03;
+	// time stuff
+	_timeSelected = ["DynTime"] call BIS_fnc_getParamValue;
+	switch (_timeSelected) do {
+		case 0: {
+			// morning
+			setDate [2016,7,26,4,38];
+		};
+		case 1: {
+			// noon
+			setDate [2016,7,26,12,0];
+		};
+		case 2: {
+			// afternoon
+			setDate [2016,7,26,15,38];
+		};
+		case 3: {
+			// midnight
+			setDate [2016,7,26,0,0];
+		};
+		case 4: {
+			// faster time - can create significant client lag when in environment with higher latencies
+			[] spawn {
+				while {true} do {
+					// normal rate for nice day times
+					_rate = 0.000265;
+					if (((daytime > 9.5) && (daytime < 15.5)) || ((daytime > 22.5) || (daytime < 3.5))) then {
+						// apply faster rate - dont stay in dark for too long
+						// also dont stay in bright day for too long
+						_rate = 0.00053;
+					};
+					_i = 0;
+					for "_i" from 0 to 30 do {
+						skipTime _rate;
+						sleep 0.03;
+					};
+				};
 			};
 		};
 	};

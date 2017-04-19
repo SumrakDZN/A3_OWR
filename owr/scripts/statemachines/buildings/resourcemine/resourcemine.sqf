@@ -2,6 +2,7 @@ _resMine = _this select 0;
 _resType = _this select 1;
 _assignedWarehouse = _this select 2;
 _curatorToCheck = _this select 3;
+_speedOfGame = owr_gameSpeed;
 
 switch (typeOf _resMine) do {
 	case "source_sib_am": {
@@ -50,7 +51,7 @@ if (!(isServer)) exitWith {};
 _b_state = 0;						// initial state of fsm
 _bComplx = getNumber (configFile >> "CfgVehicles" >> (typeOf _resMine) >> "mComplx");
 _tickNo = 0;
-_baseTick = 85;
+_baseTick = 55;
 _miningTick = _baseTick;
 _resMine setVariable ["ow_resourcemine_level", 0, true];
 switch (_resType) do {
@@ -59,36 +60,36 @@ switch (_resType) do {
 		if (["siberite", 0, _curatorToCheck] call owr_fn_isResearchComplete) then {
 			if (["siberite", 1, _curatorToCheck] call owr_fn_isResearchComplete) then {
 				if (["siberite", 2, _curatorToCheck] call owr_fn_isResearchComplete) then {
-					_baseTick = 55;
+					_baseTick = 25;
 					_resMine setVariable ["ow_resourcemine_level", 3, true];
 				} else {
-					_baseTick = 65;
+					_baseTick = 40;
 					_resMine setVariable ["ow_resourcemine_level", 2, true];
 				};
 			} else {
-				_baseTick = 75;
+				_baseTick = 50;
 				_resMine setVariable ["ow_resourcemine_level", 1, true];
 			};
 		};
-		_miningTick = (_baseTick * 2) + random [7, 10, 15];		// siberite tick is slower
+		_miningTick = (_baseTick * 1.5) + random [7, 10, 15] - _speedOfGame;		// siberite tick is slower
 	};
 	case "ow_wrhs_oil": {
 		_wip_prog_base = 0.001;
 		if (["basic", 0, _curatorToCheck] call owr_fn_isResearchComplete) then {
 			if (["basic", 1, _curatorToCheck] call owr_fn_isResearchComplete) then {
 				if (["basic", 2, _curatorToCheck] call owr_fn_isResearchComplete) then {
-					_baseTick = 55;
+					_baseTick = 25;
 					_resMine setVariable ["ow_resourcemine_level", 3, true];
 				} else {
-					_baseTick = 65;
+					_baseTick = 40;
 					_resMine setVariable ["ow_resourcemine_level", 2, true];
 				};
 			} else {
-				_baseTick = 75;
+				_baseTick = 50;
 				_resMine setVariable ["ow_resourcemine_level", 1, true];
 			};
 		};
-		_miningTick = _baseTick + random [7, 10, 15]; 				// default tick for oil
+		_miningTick = _baseTick + random [3, 5, 7] - _speedOfGame; 				// default tick for oil
 	};
 };
 
@@ -181,24 +182,24 @@ while {!(isNull _resMine)} do {
 
 				switch (_resMine getVariable "ow_resourcemine_level") do {
 					case 0: {
-						_baseTick = 85;
+						_baseTick = 55;
 					};
 					case 1: {
-						_baseTick = 75;
+						_baseTick = 50;
 					};
 					case 2: {
-						_baseTick = 65;
+						_baseTick = 40;
 					};
 					case 3: {
-						_baseTick = 55;
+						_baseTick = 25;
 					};
 				};
 				switch (_resType) do {
 					case "ow_wrhs_siberite": {
-						_miningTick = (_baseTick * 2) + random [7, 10, 15];		// siberite tick is slower
+						_miningTick = (_baseTick * 1.5) + random [7, 10, 15] - _speedOfGame;		// siberite tick is slower
 					};
 					case "ow_wrhs_oil": {
-						_miningTick = _baseTick + random [7, 10, 15]; 			// default tick for oil
+						_miningTick = _baseTick + random [3, 5, 7] - _speedOfGame; 			// default tick for oil
 					};
 				};
 			};

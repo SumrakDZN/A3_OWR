@@ -2220,24 +2220,46 @@ for "_i" from 0 to ((count owr_res_siberite) - 1) do {
 bis_curator_east setVariable ["owr_ru_siberite_sources", _actualSibPoses, true];
 
 
-// ENVIRONMENT - FASTER TIME
-[] spawn {
-	while {true} do {
-		// normal rate for nice day times
-		_rate = 0.000265;
-		if (((daytime > 9.5) && (daytime < 15.5)) || ((daytime > 22.5) || (daytime < 3.5))) then {
-			// apply faster rate - dont stay in dark for too long
-			// also dont stay in bright day for too long
-			_rate = 0.00053;
-		};
-		_i = 0;
-		for "_i" from 0 to 30 do {
-			skipTime _rate;
-			sleep 0.03;
+// ENVIRONMENT - TIME
+// but check first mission params!
+_timeSelected = ["DynTime"] call BIS_fnc_getParamValue;
+switch (_timeSelected) do {
+	case 0: {
+		// morning
+		setDate [2016,7,26,4,38];
+	};
+	case 1: {
+		// noon
+		setDate [2016,7,26,12,0];
+	};
+	case 2: {
+		// afternoon
+		setDate [2016,7,26,15,38];
+	};
+	case 3: {
+		// midnight
+		setDate [2016,7,26,0,0];
+	};
+	case 4: {
+		// faster time - can create significant client lag when in environment with higher latencies
+		[] spawn {
+			while {true} do {
+				// normal rate for nice day times
+				_rate = 0.000265;
+				if (((daytime > 9.5) && (daytime < 15.5)) || ((daytime > 22.5) || (daytime < 3.5))) then {
+					// apply faster rate - dont stay in dark for too long
+					// also dont stay in bright day for too long
+					_rate = 0.00053;
+				};
+				_i = 0;
+				for "_i" from 0 to 30 do {
+					skipTime _rate;
+					sleep 0.03;
+				};
+			};
 		};
 	};
 };
-
 
 sleep 3;
 
@@ -2283,7 +2305,7 @@ sleep 3;
 		_tempUnit disableAI "COVER";
 		_tempUnit setVariable ["ow_class", _majorPref, true];
 		_tempUnit setVariable ["ow_ctype", true, true];
-		_tempUnit setVariable ["ow_aitype", 1, true];
+		_tempUnit setVariable ["ow_aitype", 0, true];
 		_tempUnit setVariable ["ow_worker_buildmode", 0, true];
 		_tempUnit setVariable ["ow_skill_soldier", random [0.01, 2, 4.0], true];
 		_tempUnit setVariable ["ow_skill_worker", random [0.01, 2, 4.0], true];
@@ -2399,7 +2421,7 @@ sleep 3;
 		_tempUnit disableAI "COVER";
 		_tempUnit setVariable ["ow_class", _majorPref, true];
 		_tempUnit setVariable ["ow_ctype", true, true];
-		_tempUnit setVariable ["ow_aitype", 1, true];
+		_tempUnit setVariable ["ow_aitype", 0, true];
 		_tempUnit setVariable ["ow_worker_buildmode", 0, true];
 		_tempUnit setVariable ["ow_skill_soldier", random [0.01, 2, 4.0], true];
 		_tempUnit setVariable ["ow_skill_worker", random [0.01, 2, 4.0], true];
@@ -2515,7 +2537,7 @@ sleep 3;
 		_tempUnit disableAI "COVER";
 		_tempUnit setVariable ["ow_class", _majorPref, true];
 		_tempUnit setVariable ["ow_ctype", true, true];
-		_tempUnit setVariable ["ow_aitype", 1, true];
+		_tempUnit setVariable ["ow_aitype", 0, true];
 		_tempUnit setVariable ["ow_worker_buildmode", 0, true];
 		_tempUnit setVariable ["ow_skill_soldier", random [0.01, 2, 4.0], true];
 		_tempUnit setVariable ["ow_skill_worker", random [0.01, 2, 4.0], true];
