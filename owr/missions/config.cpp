@@ -13,10 +13,15 @@ class CfgMissions
 {
 	class MPMissions
 	{
-		class owr_beta
+		class owr_domination
 		{
-			briefingName = "Original War BETA";
-			directory = "owr\missions\MPScenarios\owr_beta.pliocen";
+			briefingName = "Original War Domination";
+			directory = "owr\missions\MPScenarios\owr_domination.pliocen";
+		};
+		class owr_skirmish
+		{
+			briefingName = "Original War Skirmish";
+			directory = "owr\missions\MPScenarios\owr_skirmish.pliocen";
 		};
 	};
 };
