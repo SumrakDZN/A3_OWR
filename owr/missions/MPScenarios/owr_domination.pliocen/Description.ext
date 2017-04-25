@@ -617,12 +617,19 @@ class Params
 		values[] = {1, 0};
 		default = 0;
 	};
+	class MiscAssets
+	{
+		title = "Misc assets (mostly visual only, no function except fortification purposes)";
+		texts[] = {"Yes","No"}; 
+		values[] = {1, 0};
+		default = 1;
+	};
 	class DynTime
 	{
 		title = "Mission time";
 		texts[] = {"Morning (real-time)", "Noon (real-time)", "Afternoon (real-time)", "Midnight (real-time)", "Faster (starts at afternoon, not recommended in environment with higher latencies)"};
 		values[] = {0,1,2,3,4};
-		default = 2;
+		default = 0;
 	};
 	class DynChars
 	{

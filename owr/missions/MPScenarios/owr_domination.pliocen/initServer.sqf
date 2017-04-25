@@ -10,7 +10,7 @@ if (_debugModeParam == 1) then {
 //////////////////////////////////////////////////////////////////////////////////////////////
 // FUNCTION INIT
 //////////////////////////////////////////////////////////////////////////////////////////////
-// main function init (client-side functions)
+// main function init (server-side functions)
 call compile preprocessFileLineNumbers "\owr\scripts\functions\initFnServer.sqf";
 
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -65,7 +65,8 @@ owr_am_characters = [am01,am02,am03,am04,am05,am06];
 	};
 	bis_curator_west addCuratorEditableObjects [[_x], false];
 	[_x] spawn owr_fn_owman_am_ai;
-	if (local _x) then {
+	_x setvariable ["ow_scriptedDmgEHID", -1, true];
+	//if (local _x) then {
 		[_x, _x getVariable "ow_class", "am"] call owr_fn_assignClassGear;
 		_damageIgnoreSet = _x addEventHandler ["GetInMan", {[(_this select 0), false] remoteExec ["allowDamage", 0];}];
 		_damageIgnoreOff = _x addEventHandler ["GetOutMan", {[(_this select 0), true] remoteExec ["allowDamage", 0];}];
@@ -77,7 +78,7 @@ owr_am_characters = [am01,am02,am03,am04,am05,am06];
 			_newDamage = (damage _victim) + (_revDamage / _damageDivisor);
 			_newDamage
 		}];
-	} else {
+	/*} else {
 		//[_x, [_x, _x getVariable "ow_class", "am"]] remoteExec ["owr_fn_assignClassGear", 0];	// done in init.sqf
 		[_x, ["GetOutMan", {[(_this select 0), true] remoteExec ["allowDamage", 0];}]] remoteExec ["addEventHandler", 0];
 		[_x, ["GetInMan", {[(_this select 0), false] remoteExec ["allowDamage", 0];}]] remoteExec ["addEventHandler", 0];
@@ -89,7 +90,7 @@ owr_am_characters = [am01,am02,am03,am04,am05,am06];
 			_newDamage = (damage _victim) + (_revDamage / _damageDivisor);
 			_newDamage
 		}]] remoteExec ["addEventHandler", 0];
-	};
+	};*/
 } foreach owr_am_characters;
 removeAllCuratorEditingAreas bis_curator_west;
 bis_curator_west addCuratorEditingArea [5, [10,10,1000], 0.1];
@@ -174,7 +175,8 @@ owr_ar_characters = [ar01,ar02,ar03,ar04,ar05,ar06];
 	};
 	bis_curator_arab addCuratorEditableObjects [[_x], false];
 	[_x] spawn owr_fn_owman_ar_ai;
-	if (local _x) then {
+	_x setvariable ["ow_scriptedDmgEHID", -1, true];
+	//if (local _x) then {
 		[_x, _x getVariable "ow_class", "ar"] call owr_fn_assignClassGear;
 		_damageIgnoreSet = _x addEventHandler ["GetInMan", {[(_this select 0), false] remoteExec ["allowDamage", 0];}];
 		_damageIgnoreOff = _x addEventHandler ["GetOutMan", {[(_this select 0), true] remoteExec ["allowDamage", 0];}];
@@ -186,7 +188,7 @@ owr_ar_characters = [ar01,ar02,ar03,ar04,ar05,ar06];
 			_newDamage = (damage _victim) + (_revDamage / _damageDivisor);
 			_newDamage
 		}];
-	} else {
+	/*} else {
 		//[_x, [_x, _x getVariable "ow_class", "ar"]] remoteExec ["owr_fn_assignClassGear", 0];	// done in init.sqf
 		[_x, ["GetOutMan", {[(_this select 0), true] remoteExec ["allowDamage", 0];}]] remoteExec ["addEventHandler", 0];
 		[_x, ["GetInMan", {[(_this select 0), false] remoteExec ["allowDamage", 0];}]] remoteExec ["addEventHandler", 0];
@@ -198,7 +200,7 @@ owr_ar_characters = [ar01,ar02,ar03,ar04,ar05,ar06];
 			_newDamage = (damage _victim) + (_revDamage / _damageDivisor);
 			_newDamage
 		}]] remoteExec ["addEventHandler", 0];
-	};
+	};*/
 } foreach owr_ar_characters;
 removeAllCuratorEditingAreas bis_curator_arab;
 bis_curator_arab addCuratorEditingArea [5, [10,10,1000], 0.1];
@@ -266,7 +268,8 @@ owr_ru_characters = [ru01,ru02,ru03,ru04,ru05,ru06];
 	};
 	bis_curator_east addCuratorEditableObjects [[_x], false];
 	[_x] spawn owr_fn_owman_ru_ai;
-	if (local _x) then {
+	_x setvariable ["ow_scriptedDmgEHID", -1, true];
+	//if (local _x) then {
 		[_x, _x getVariable "ow_class", "ru"] call owr_fn_assignClassGear;
 		_damageIgnoreSet = _x addEventHandler ["GetInMan", {[(_this select 0), false] remoteExec ["allowDamage", 0];}];
 		_damageIgnoreOff = _x addEventHandler ["GetOutMan", {[(_this select 0), true] remoteExec ["allowDamage", 0];}];
@@ -278,7 +281,7 @@ owr_ru_characters = [ru01,ru02,ru03,ru04,ru05,ru06];
 			_newDamage = (damage _victim) + (_revDamage / _damageDivisor);
 			_newDamage
 		}];
-	} else {
+	/*} else {
 		//[_x, [_x, _x getVariable "ow_class", "ru"]] remoteExec ["owr_fn_assignClassGear", 0];	// done in init.sqf
 		[_x, ["GetOutMan", {[(_this select 0), true] remoteExec ["allowDamage", 0];}]] remoteExec ["addEventHandler", 0];
 		[_x, ["GetInMan", {[(_this select 0), false] remoteExec ["allowDamage", 0];}]] remoteExec ["addEventHandler", 0];
@@ -290,7 +293,7 @@ owr_ru_characters = [ru01,ru02,ru03,ru04,ru05,ru06];
 			_newDamage = (damage _victim) + (_revDamage / _damageDivisor);
 			_newDamage
 		}]] remoteExec ["addEventHandler", 0];
-	};
+	};*/
 } foreach owr_ru_characters;
 removeAllCuratorEditingAreas bis_curator_east;
 bis_curator_east addCuratorEditingArea [4, [0,0,1000], 0.1];

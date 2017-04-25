@@ -27,6 +27,39 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 	if (isuavconnected vehicle _unit) then {_error = localize "str_a3_cfgvehicles_moduleremotecontrol_f_errorControl";};
 
 	if (_error == "") then {
+		// all passed, lets check if this is happening on pure client
+		if (!isServer) then {
+			//diag_log format ["CLIENT ONLY"];
+			_existingEHID = _unit getvariable "ow_scriptedDmgEHID";
+			if (_existingEHID == -1) then {
+				// EH has not yet been created
+				_ehID = _unit addEventHandler ["HandleDamage", {
+					_victim = (_this select 0);
+					_revDamage = (_this select 2) - (damage _victim);
+					_damageDivisor = 12;
+
+					_newDamage = (damage _victim) + (_revDamage / _damageDivisor);
+					_newDamage
+				}];
+				// set ID for future (in case client jumps into remote control again..)
+				_unit setvariable ["ow_scriptedDmgEHID", _ehID, true];
+				//diag_log format [" EH has been created, id is %1", _unit getvariable "ow_scriptedDmgEHID"];
+			} else {
+				//diag_log format [" EH already exists on this client, id is %1, removing this EH and adding it again..", _unit getvariable "ow_scriptedDmgEHID"];
+				_unit removeEventHandler ["HandleDamage", (_unit getvariable "ow_scriptedDmgEHID")];
+				_ehID = _unit addEventHandler ["HandleDamage", {
+					_victim = (_this select 0);
+					_revDamage = (_this select 2) - (damage _victim);
+					_damageDivisor = 12;
+
+					_newDamage = (damage _victim) + (_revDamage / _damageDivisor);
+					_newDamage
+				}];
+				_unit setvariable ["ow_scriptedDmgEHID", _ehID, true];
+				//diag_log format [" new EH has been created, id is %1", _unit getvariable "ow_scriptedDmgEHID"];
+			};
+		};
+
 		_unit spawn {
 			scriptname "bis_fnc_moduleRemoteControl: Loop";
 			_unit = _this;

@@ -1,5 +1,102 @@
 owr_fn_remoteControl = compile preprocessFileLineNumbers "\owr\scripts\functions\owr_fn_moduleRemoteControl.sqf";
 
+owr_fn_scriptedDmgSysVehicleEH = {
+	_vehicle = _this select 0;
+	_side_type = _this select 1;
+	_chassis_type = _this select 2;
+
+	switch (_side_type) do {
+		case 0: {
+			switch (_chassis_type) do {
+				case 0: {
+					_vehicle addEventHandler ["HandleDamage", {
+						_victim = (_this select 0);
+						_revDamage = (_this select 2) - (damage _victim);
+						_damageDivisor = 11;
+
+						_newDamage = (damage _victim) + (_revDamage / _damageDivisor);
+						_newDamage
+					}];
+				};
+				case 1: {
+					_vehicle addEventHandler ["HandleDamage", {
+						_victim = (_this select 0);
+						_revDamage = (_this select 2) - (damage _victim);
+						_damageDivisor = 14;
+
+						_newDamage = (damage _victim) + (_revDamage / _damageDivisor);
+						_newDamage
+					}];
+				};
+				case 2: {
+					_vehicle addEventHandler ["HandleDamage", {
+						_victim = (_this select 0);
+						_revDamage = (_this select 2) - (damage _victim);
+						_damageDivisor = 21;
+
+						_newDamage = (damage _victim) + (_revDamage / _damageDivisor);
+						_newDamage
+					}];
+				};
+				case 3: {
+					_vehicle addEventHandler ["HandleDamage", {
+						_victim = (_this select 0);
+						_revDamage = (_this select 2) - (damage _victim);
+						_damageDivisor = 15;
+
+						_newDamage = (damage _victim) + (_revDamage / _damageDivisor);
+						_newDamage
+					}];
+				};
+			};
+		};
+		case 1: {
+			switch (_chassis_type) do {
+				case 0: {
+					_vehicle addEventHandler ["HandleDamage", {
+						_victim = (_this select 0);
+						_revDamage = (_this select 2) - (damage _victim);
+						_damageDivisor = 10;
+
+						_newDamage = (damage _victim) + (_revDamage / _damageDivisor);
+						_newDamage
+					}];
+				};
+				case 1: {
+					_vehicle addEventHandler ["HandleDamage", {
+						_victim = (_this select 0);
+						_revDamage = (_this select 2) - (damage _victim);
+						_damageDivisor = 28;
+
+						_newDamage = (damage _victim) + (_revDamage / _damageDivisor);
+						_newDamage
+					}];
+				};
+				case 2: {
+					_vehicle addEventHandler ["HandleDamage", {
+						_victim = (_this select 0);
+						_revDamage = (_this select 2) - (damage _victim);
+						_damageDivisor = 14;
+
+						_newDamage = (damage _victim) + (_revDamage / _damageDivisor);
+						_newDamage
+					}];
+				};
+				case 3: {
+					_vehicle addEventHandler ["HandleDamage", {
+						_victim = (_this select 0);
+						_revDamage = (_this select 2) - (damage _victim);
+						_damageDivisor = 37;
+
+						_newDamage = (damage _victim) + (_revDamage / _damageDivisor);
+						_newDamage
+					}];
+				};
+			};
+		};
+	};
+};
+
 owr_fn_nodeMarkerManager = {
 
 	for "_i" from 0 to ((count owr_positions_nodes) - 1) do {
@@ -377,13 +474,16 @@ owr_fn_unitGetNextBehaviour = {
 owr_fn_getOutOfVehicle = {
 	_unitToHandle = _this select 0;
 	_vehicle = vehicle _unitToHandle;
-	_unitToHandle setBehaviour "AWARE";
-	_unitToHandle leaveVehicle _vehicle;
+	//_unitToHandle setBehaviour "AWARE";
+	[_unitToHandle, "AWARE"] remoteExec ["setBehaviour", owner _unitToHandle];
+	//_unitToHandle leaveVehicle _vehicle;
+	[_unitToHandle, _vehicle] remoteExec ["leaveVehicle", owner _unitToHandle];
 };
 owr_fn_stopCombatWaypoint = {
 	_unitToHandle = _this select 0;
 	sleep 0.01;
-	_unitToHandle setBehaviour "AWARE";
+	//_unitToHandle setBehaviour "AWARE";
+	[_unitToHandle, "AWARE"] remoteExec ["setBehaviour", owner _unitToHandle];
 };
 owr_fn_materialization_effect = {
 	_materializedObject = _this select 0;
@@ -5828,14 +5928,22 @@ owr_fn_GUIActiveActionButtons = {
 										_owr_action6 ctrlSetTooltip "";
 										_owr_action6 ctrlRemoveAllEventHandlers "buttonclick";
 
-										_owr_action5 ctrlSetText "\owr\ui\data\actions\icon_action_bbuild_ca.paa";
-										_owr_action5 ctrlSetTooltip "Build misc assets ( warning - usage is un-limited - use it in a fair way please! )";
-										_owr_action5 ctrlRemoveAllEventHandlers "buttonclick";
-										_owr_action5 ctrladdeventhandler ["buttonclick", {
-											_unitToChange = (curatorSelected select 0) select 0;
-											_unitToChange setVariable ["ow_worker_buildmode", 6, true];
-											playSound "owr_ui_button_confirm";
-										}];	
+										if (owr_miscAllowed == 1) then {
+											_owr_action5 ctrlSetText "\owr\ui\data\actions\icon_action_bbuild_ca.paa";
+											_owr_action5 ctrlSetTooltip "Build misc assets ( warning - usage is un-limited - use it in a fair way please! )";
+											_owr_action5 ctrlRemoveAllEventHandlers "buttonclick";
+											_owr_action5 ctrladdeventhandler ["buttonclick", {
+												_unitToChange = (curatorSelected select 0) select 0;
+												_unitToChange setVariable ["ow_worker_buildmode", 6, true];
+												playSound "owr_ui_button_confirm";
+											}];
+										} else {
+											_owr_action5 ctrlSetText "\owr\ui\data\actions\icon_action_bbuild_ca.paa";
+											_owr_action5 ctrlSetTooltip "Build misc assets ( disabled through mission params )";
+											_owr_action5 ctrlRemoveAllEventHandlers "buttonclick";
+											_owr_action5 ctrlSetTextColor [0.5, 0.5, 0.5, 1];
+											_owr_action5 ctrlSetActiveColor [0.5, 0.5, 0.5, 1];
+										};
 
 										_owr_action4 ctrlSetText "\owr\ui\data\actions\icon_action_bbuild_ca.paa";
 										_owr_action4 ctrlSetTooltip "Build";

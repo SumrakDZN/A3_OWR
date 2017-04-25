@@ -10,7 +10,7 @@ if (_debugModeParam == 1) then {
 //////////////////////////////////////////////////////////////////////////////////////////////
 // FUNCTION INIT
 //////////////////////////////////////////////////////////////////////////////////////////////
-// main function init (client-side functions)
+// main function init (server-side functions)
 call compile preprocessFileLineNumbers "\owr\scripts\functions\initFnServer.sqf";
 
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -66,7 +66,8 @@ bis_curator_west setVariable ["owr_am_characters", owr_am_characters, true];
 	};
 	bis_curator_west addCuratorEditableObjects [[_x], false];
 	[_x] spawn owr_fn_owman_am_ai;
-	if (local _x) then {
+	_x setvariable ["ow_scriptedDmgEHID", -1, true];
+	//if (local _x) then {
 		[_x, _x getVariable "ow_class", "am"] call owr_fn_assignClassGear;
 		_damageIgnoreSet = _x addEventHandler ["GetInMan", {[(_this select 0), false] remoteExec ["allowDamage", 0];}];
 		_damageIgnoreOff = _x addEventHandler ["GetOutMan", {[(_this select 0), true] remoteExec ["allowDamage", 0];}];
@@ -75,22 +76,26 @@ bis_curator_west setVariable ["owr_am_characters", owr_am_characters, true];
 			_revDamage = (_this select 2) - (damage _victim);
 			_damageDivisor = 12;
 
+			//hintSilent format ["unit got hit %1", _revDamage];
+
 			_newDamage = (damage _victim) + (_revDamage / _damageDivisor);
 			_newDamage
 		}];
-	} else {
+	/*} else {
 		//[_x, [_x, _x getVariable "ow_class", "am"]] remoteExec ["owr_fn_assignClassGear", 0];	// done in init.sqf
-		[_x, ["GetOutMan", {[(_this select 0), true] remoteExec ["allowDamage", 0];}]] remoteExec ["addEventHandler", 0];
-		[_x, ["GetInMan", {[(_this select 0), false] remoteExec ["allowDamage", 0];}]] remoteExec ["addEventHandler", 0];
+		[_x, ["GetOutMan", {[(_this select 0), true] remoteExec ["allowDamage", 0];}]] remoteExec ["addEventHandler", owner _x];
+		[_x, ["GetInMan", {[(_this select 0), false] remoteExec ["allowDamage", 0];}]] remoteExec ["addEventHandler", owner _x];
 		[_x, ["HandleDamage", {
 			_victim = (_this select 0);
 			_revDamage = (_this select 2) - (damage _victim);
 			_damageDivisor = 12;
 
+			//hintSilent format ["unit got hit (remote) %1", _revDamage];
+
 			_newDamage = (damage _victim) + (_revDamage / _damageDivisor);
 			_newDamage
-		}]] remoteExec ["addEventHandler", 0];
-	};
+		}]] remoteExec ["addEventHandler", owner _x];
+	};*/
 } foreach owr_am_characters;
 removeAllCuratorEditingAreas bis_curator_west;
 bis_curator_west addCuratorEditingArea [5, [10,10,1000], 0.1];
@@ -175,7 +180,8 @@ bis_curator_east setVariable ["owr_ru_characters", owr_ru_characters, true];
 	};
 	bis_curator_east addCuratorEditableObjects [[_x], false];
 	[_x] spawn owr_fn_owman_ru_ai;
-	if (local _x) then {
+	_x setvariable ["ow_scriptedDmgEHID", -1, true];
+	//if (local _x) then {
 		[_x, _x getVariable "ow_class", "ru"] call owr_fn_assignClassGear;
 		_damageIgnoreSet = _x addEventHandler ["GetInMan", {[(_this select 0), false] remoteExec ["allowDamage", 0];}];
 		_damageIgnoreOff = _x addEventHandler ["GetOutMan", {[(_this select 0), true] remoteExec ["allowDamage", 0];}];
@@ -184,22 +190,26 @@ bis_curator_east setVariable ["owr_ru_characters", owr_ru_characters, true];
 			_revDamage = (_this select 2) - (damage _victim);
 			_damageDivisor = 12;
 
+			//hintSilent format ["unit got hit %1", _revDamage];
+
 			_newDamage = (damage _victim) + (_revDamage / _damageDivisor);
 			_newDamage
 		}];
-	} else {
+	/*} else {
 		//[_x, [_x, _x getVariable "ow_class", "ru"]] remoteExec ["owr_fn_assignClassGear", 0];	// done in init.sqf
-		[_x, ["GetOutMan", {[(_this select 0), true] remoteExec ["allowDamage", 0];}]] remoteExec ["addEventHandler", 0];
-		[_x, ["GetInMan", {[(_this select 0), false] remoteExec ["allowDamage", 0];}]] remoteExec ["addEventHandler", 0];
+		[_x, ["GetOutMan", {[(_this select 0), true] remoteExec ["allowDamage", 0];}]] remoteExec ["addEventHandler", owner _x];
+		[_x, ["GetInMan", {[(_this select 0), false] remoteExec ["allowDamage", 0];}]] remoteExec ["addEventHandler", owner _x];
 		[_x, ["HandleDamage", {
 			_victim = (_this select 0);
 			_revDamage = (_this select 2) - (damage _victim);
 			_damageDivisor = 12;
 
+			//hintSilent format ["unit got hit (remote) %1", _revDamage];
+
 			_newDamage = (damage _victim) + (_revDamage / _damageDivisor);
 			_newDamage
-		}]] remoteExec ["addEventHandler", 0];
-	};
+		}]] remoteExec ["addEventHandler", owner _x];
+	};*/
 } foreach owr_ru_characters;
 removeAllCuratorEditingAreas bis_curator_east;
 bis_curator_east addCuratorEditingArea [4, [0,0,1000], 0.1];
@@ -728,6 +738,8 @@ sleep 3;
 			_victim = (_this select 0);
 			_revDamage = (_this select 2) - (damage _victim);
 			_damageDivisor = 12;
+
+			//hintSilent format ["unit got hit %1", _revDamage];
 
 			_newDamage = (damage _victim) + (_revDamage / _damageDivisor);
 			_newDamage

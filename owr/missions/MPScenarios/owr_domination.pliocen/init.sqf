@@ -78,6 +78,8 @@ owr_fn_ncombat_vehicle = compile preprocessFileLineNumbers "\owr\scripts\statema
 // other variables
 owr_positions_nodes = [[3278.44,1419.39],[1965.64,2628],[3127.1,2960.5],[3808.36,2976.56],[3838.7,2032.59],[3076.5,2276.03],[2486.46,2023.94]];
 owr_stopmusic = false;
+owr_miscAllowed = ["MiscAssets"] call BIS_fnc_getParamValue;
+owr_gameSpeed = ["GameSpeed"] call BIS_fnc_getParamValue;
 
 sleep 1;
 
@@ -270,6 +272,15 @@ switch (player) do {
 					[] call bis_fnc_respawnspectator;
 					[bis_curator_west, [[_this select 0], false]] remoteExec ["removeCuratorEditableObjects", 0];
 				}];
+				//
+				player addEventHandler ["HandleDamage", {
+					_victim = (_this select 0);
+					_revDamage = (_this select 2) - (damage _victim);
+					_damageDivisor = 12;
+
+					_newDamage = (damage _victim) + (_revDamage / _damageDivisor);
+					_newDamage
+				}];
 
 				// add eventhandlers for actions related to cargo vehicle
 				player addeventhandler ["GetInMan", {
@@ -375,6 +386,15 @@ switch (player) do {
 					[] call bis_fnc_respawnspectator;
 					[bis_curator_east, [[_this select 0], false]] remoteExec ["removeCuratorEditableObjects", 0];
 				}];
+				//
+				player addEventHandler ["HandleDamage", {
+					_victim = (_this select 0);
+					_revDamage = (_this select 2) - (damage _victim);
+					_damageDivisor = 12;
+
+					_newDamage = (damage _victim) + (_revDamage / _damageDivisor);
+					_newDamage
+				}];
 
 				// add eventhandlers for actions related to cargo vehicle
 				player addeventhandler ["GetInMan", {
@@ -471,6 +491,15 @@ switch (player) do {
 				player addeventhandler ["Killed", {
 					[] call bis_fnc_respawnspectator;
 					[bis_curator_arab, [[_this select 0], false]] remoteExec ["removeCuratorEditableObjects", 0];
+				}];
+				//
+				player addEventHandler ["HandleDamage", {
+					_victim = (_this select 0);
+					_revDamage = (_this select 2) - (damage _victim);
+					_damageDivisor = 12;
+
+					_newDamage = (damage _victim) + (_revDamage / _damageDivisor);
+					_newDamage
 				}];
 
 				// todo: eventhandlers for actions related to cargo vehicle

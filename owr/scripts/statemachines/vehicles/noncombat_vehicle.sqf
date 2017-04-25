@@ -1,3 +1,6 @@
+// only executed on server! - just purely from safety - it should not be executed elsewhere
+if (!(isServer)) exitWith {};
+
 _vehicle = (_this select 0);			// vehicle itself
 _fuel_type = (_this select 1);			// 0 = cb, 1 = sb, 2 = el,  
 _control_type = (_this select 2); 		// 0 = mn, 1 = ai, 2 = rt
@@ -14,97 +17,8 @@ _currFuel = 0.0;
 _manualControl = false;
 
 // setup damage handlers - vehicle chassis dependent
-switch (_side_type) do {
-	case 0: {
-		switch (_chassis_type) do {
-			case 0: {
-				_vehicle addEventHandler ["HandleDamage", {
-					_victim = (_this select 0);
-					_revDamage = (_this select 2) - (damage _victim);
-					_damageDivisor = 11;
-
-					_newDamage = (damage _victim) + (_revDamage / _damageDivisor);
-					_newDamage
-				}];
-			};
-			case 1: {
-				_vehicle addEventHandler ["HandleDamage", {
-					_victim = (_this select 0);
-					_revDamage = (_this select 2) - (damage _victim);
-					_damageDivisor = 14;
-
-					_newDamage = (damage _victim) + (_revDamage / _damageDivisor);
-					_newDamage
-				}];
-			};
-			case 2: {
-				_vehicle addEventHandler ["HandleDamage", {
-					_victim = (_this select 0);
-					_revDamage = (_this select 2) - (damage _victim);
-					_damageDivisor = 21;
-
-					_newDamage = (damage _victim) + (_revDamage / _damageDivisor);
-					_newDamage
-				}];
-			};
-			case 3: {
-				_vehicle addEventHandler ["HandleDamage", {
-					_victim = (_this select 0);
-					_revDamage = (_this select 2) - (damage _victim);
-					_damageDivisor = 20;
-
-					_newDamage = (damage _victim) + (_revDamage / _damageDivisor);
-					_newDamage
-				}];
-			};
-		};
-	};
-	case 1: {
-		switch (_chassis_type) do {
-			case 0: {
-				_vehicle addEventHandler ["HandleDamage", {
-					_victim = (_this select 0);
-					_revDamage = (_this select 2) - (damage _victim);
-					_damageDivisor = 10;
-
-					_newDamage = (damage _victim) + (_revDamage / _damageDivisor);
-					_newDamage
-				}];
-			};
-			case 1: {
-				_vehicle addEventHandler ["HandleDamage", {
-					_victim = (_this select 0);
-					_revDamage = (_this select 2) - (damage _victim);
-					_damageDivisor = 28;
-
-					_newDamage = (damage _victim) + (_revDamage / _damageDivisor);
-					_newDamage
-				}];
-			};
-			case 2: {
-				_vehicle addEventHandler ["HandleDamage", {
-					_victim = (_this select 0);
-					_revDamage = (_this select 2) - (damage _victim);
-					_damageDivisor = 14;
-
-					_newDamage = (damage _victim) + (_revDamage / _damageDivisor);
-					_newDamage
-				}];
-			};
-			case 3: {
-				_vehicle addEventHandler ["HandleDamage", {
-					_victim = (_this select 0);
-					_revDamage = (_this select 2) - (damage _victim);
-					_damageDivisor = 37;
-
-					_newDamage = (damage _victim) + (_revDamage / _damageDivisor);
-					_newDamage
-				}];
-			};
-		};
-	};
-};
-
+// _side = 0 = west, _side = 1 = east
+[_vehicle, _side_type, _chassis_type] call owr_fn_scriptedDmgSysVehicleEH;
 
 switch (_control_type) do {
 	case 0: {
@@ -223,5 +137,13 @@ while {!(isNull _vehicle)} do {
 			};
 		};
 	};
-	sleep 1.0;
+
+	sleep 1;
+
+	// owner changed, we need to make sure vehicle has scripted damage system handler too
+	if ((_lastOwner != (owner _vehicle)) && (_firstOwner != (owner _vehicle))) then {
+		[_vehicle, _side_type, _chassis_type] remoteExec ["owr_fn_scriptedDmgSysVehicleEH", owner _vehicle];
+	};
+
+	_lastOwner = owner _vehicle;
 };
